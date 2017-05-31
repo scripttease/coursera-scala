@@ -154,4 +154,26 @@ class FunSetSuite extends FunSuite {
       
     }
   }
+
+  // Part 2.2
+
+  test("forall returns true if all bounded ints in set satisfy pred") {
+    new TestSets {
+      val s = union(union(s1, s2), s3) // contains 1,2,3
+      val p = (x: Int) => x % 2 == 0 // predicate states must be even
+      
+      assert(!forall(s, p), "set contains some ints that fail pred")
+      assert(forall(s2, p), "set only contains ints that satisfy pred")
+    }
+  }
+
+  test("exists returns true if any in bounded ints satisfy pred") {
+    new TestSets {
+      val s = union(union(s1, s2), s3) // contains 1,2,3
+      val p = (x: Int) => x % 2 == 0 // predicate states must be even
+
+      assert(exists(s, p), "set has an int that satisfies pred")
+      assert(!exists(s1, p), "set has no ints that satisfy pred")
+    }
+  }
 }

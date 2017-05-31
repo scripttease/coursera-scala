@@ -64,7 +64,6 @@ object FunSets {
     def filter(s: Set, p: Int => Boolean): Set = {
       (x: Int) => s(x) && p(x)
     }
-  
 
   /**
    * The bounds for `forall` and `exists` are +/- 1000.
@@ -75,24 +74,47 @@ object FunSets {
    * Returns whether all bounded integers within `s` satisfy `p`.
    */
     def forall(s: Set, p: Int => Boolean): Boolean = {
-    def iter(a: Int): Boolean = {
-      if (???) ???
-      else if (???) ???
-      else iter(???)
+      def iter(a: Int): Boolean = {
+        if (a == bound + 1) // gets to 1001 and nothing in set fails pred.
+          true
+        // test if in set but fails predicate
+        // don't need to test if in set only.
+        else if (contains(s, a) && !contains(p, a))
+          false
+        else iter(a + 1)
+      }
+      // don't know what is in set (other than it's an Int)
+      // so must test each int between the bounds fulfils predicate
+      iter(-bound) // start from lower bound of -1000
     }
-    iter(???)
-  }
   
   /**
    * Returns whether there exists a bounded integer within `s`
    * that satisfies `p`.
    */
-    def exists(s: Set, p: Int => Boolean): Boolean = ???
+    def exists(s: Set, p: Int => Boolean): Boolean = {
+      def iter(a: Int): Boolean = {
+        if (a == bound + 1) // gets to 1001 and nothing in set satisfied pred.
+          false
+        // test if in set and satisfies predicate
+        else if (contains(s, a) && contains(p, a))
+          true
+        else iter(a + 1)
+      }
+      // don't know what is in set (other than it's an Int)
+      // so must test each int between the bounds fulfils predicate
+      iter(-bound) // start from lower bound of -1000
+    }
   
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
     def map(s: Set, f: Int => Int): Set = ???
+      // if bound int a in set, return new set containing f(a)
+      // if s(a) 
+      //    singletonSet(f(a))
+      // but on next iter do union (so add the next singletonSet(f(a)) to prev.
+      //
   
   /**
    * Displays the contents of a set
